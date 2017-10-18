@@ -6,8 +6,5 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center"
-    },
-    label: {
-        fontSize: 30
     }
 })

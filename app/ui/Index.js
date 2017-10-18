@@ -94,11 +94,8 @@ export default class Index extends React.Component
 
     render() {
         const { status } = this.state
-        return (
-            <View style={generalStyles.container}>
-                { this.getView(status) }
-            </View>
-        )
+
+        return this.getView(status)
     }
 
 }
