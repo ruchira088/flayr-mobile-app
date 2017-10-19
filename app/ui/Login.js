@@ -3,7 +3,7 @@ import { View, Text, TextInput } from "react-native"
 import Button from "apsl-react-native-button"
 import commonStyles, { jsStyles } from "./styles/general"
 
-export default ({ onPasscodeChange, onLoginButtonPress }) => (
+export default ({ onPasscodeChange, onLoginButtonPress, isLoading }) => (
     <View style={commonStyles.container}>
         <View style={commonStyles.body}>
             <Text style={commonStyles.description}>
@@ -17,10 +17,11 @@ export default ({ onPasscodeChange, onLoginButtonPress }) => (
                 style={commonStyles.textInput}/>
         </View>
         <Button
-            style={commonStyles.button}
+            isLoading={isLoading}
             textStyle={jsStyles.textStyle}
             activityIndicatorColor={jsStyles.activityIndicatorColor}
-            onPress={onLoginButtonPress}>
+            onPress={onLoginButtonPress}
+            style={commonStyles.button}>
             Submit
         </Button>
     </View>

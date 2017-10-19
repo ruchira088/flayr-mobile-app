@@ -60,7 +60,10 @@ export default class Index extends React.Component
     }
 
     loginScreen = () => {
+        const { loading } = this.state
+
         return <LoginScreen
+                isLoading={loading}
                 onPasscodeChange={this.onStateChange("passcode")}
                 onLoginButtonPress={this.onLoginSubmit}/>
     }
@@ -84,14 +87,13 @@ export default class Index extends React.Component
     onLoginSubmit = async () => {
         const { mobileNumber, passcode } = this.state
 
+        this.setState({ loading: true })
+
         const loginResponse = await login(mobileNumber, passcode)
 
         await storeUserDetails(loginResponse.data)
 
-        console.log(loginResponse.data)
-
-        this.setState({ status: HOME })
-
+        this.setState({ status: HOME, loading: false })
     }
 
     onStateChange = name => value => {
