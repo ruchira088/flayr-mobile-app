@@ -11,20 +11,5 @@ export default StyleSheet.create({
     description: {
         fontSize: 20,
         padding: 10
-    },
-    label: {
-        fontSize: 30,
-        textAlign: "center",
-        marginTop: 80
-    },
-    textInput: {
-        fontSize: 30,
-        textAlign: "center",
-        margin: 20
-    },
-    button: {
-        backgroundColor: "black",
-        color: "white",
-        fontSize: 30
     }
 })

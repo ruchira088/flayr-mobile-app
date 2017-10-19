@@ -23,7 +23,8 @@ export default class Index extends React.Component
         this.state = {
             status: PENDING,
             mobileNumber: "",
-            passcode: ""
+            passcode: "",
+            loading: false
         }
     }
 
@@ -50,7 +51,10 @@ export default class Index extends React.Component
     }
 
     registrationScreen = () => {
+        const { loading } = this.state
+
         return <RegisterScreen
+            isLoading={loading}
             onMobileNumberChange={this.onStateChange("mobileNumber")}
             onRegisterButtonPress={this.onRegistrationSubmit}/>
     }
@@ -68,11 +72,13 @@ export default class Index extends React.Component
     onRegistrationSubmit = async () => {
         const { mobileNumber } = this.state
 
+        this.setState({ loading: true })
+
         const registrationResponse = await register(mobileNumber)
 
         console.log(registrationResponse.data)
 
-        this.setState({ status: LOGIN })
+        this.setState({ status: LOGIN, loading: false })
     }
 
     onLoginSubmit = async () => {
