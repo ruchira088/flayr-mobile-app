@@ -1,12 +1,11 @@
 import React from "react"
-import { View } from "react-native"
 import { fetchUserDetails, storeUserDetails } from "../services/asyncStorage"
-import { register, login } from "../services/backendService"
-import { PENDING, NEW_USER, LOGIN, HOME } from "./constants/appStatus"
+import { login, register } from "../services/backendService"
+import { parseUserData } from "../utils/general"
+import { HOME, LOGIN, NEW_USER, PENDING } from "./constants/appStatus"
 import LoadingScreen from "./Loading"
 import RegisterScreen from "./Register"
 import LoginScreen from "./Login"
-import generalStyles from "./styles/general"
 import Home from "./Home";
 
 export default class Index extends React.Component
@@ -24,17 +23,20 @@ export default class Index extends React.Component
             status: PENDING,
             mobileNumber: "",
             passcode: "",
-            loading: false
+            loading: false,
+            userData: null
         }
     }
 
     async componentDidMount() {
 
-        const userDetails = await fetchUserDetails()
+        const userData = await fetchUserDetails()
 
-        const status = userDetails == null ? NEW_USER : HOME
-
-        this.setState({ status })
+        if (userData == null) {
+            this.setState({ status: NEW_USER })
+        } else {
+            this.setState({ status: HOME, userData: parseUserData(userData)})
+        }
     }
 
     STATUS_MAPPING = {
@@ -69,7 +71,9 @@ export default class Index extends React.Component
     }
 
     homeScreen = () => {
-        return <Home/>
+        const { userData } = this.state
+
+        return <Home userData={userData}/>
     }
 
     onRegistrationSubmit = async () => {
@@ -93,7 +97,7 @@ export default class Index extends React.Component
 
         await storeUserDetails(loginResponse.data)
 
-        this.setState({ status: HOME, loading: false })
+        this.setState({ status: HOME, loading: false, userData: parseUserData(loginResponse.data) })
     }
 
     onStateChange = name => value => {
