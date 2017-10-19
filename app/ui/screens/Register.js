@@ -1,8 +1,8 @@
 import React from "react"
 import { View, TextInput, Text } from "react-native"
 import Button from "apsl-react-native-button"
-import commonStyles, { jsStyles } from "./styles/general"
-import styles from "./styles/registerScreen"
+import commonStyles, { jsStyles } from "../styles/general"
+import styles from "../styles/registerScreen"
 
 export default ({ onMobileNumberChange, onRegisterButtonPress, isLoading }) => (
     <View style={commonStyles.container}>

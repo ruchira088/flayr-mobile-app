@@ -1,7 +1,7 @@
 import React from "react"
 import { View, Text, TextInput } from "react-native"
 import Button from "apsl-react-native-button"
-import commonStyles, { jsStyles } from "./styles/general"
+import commonStyles, { jsStyles } from "../styles/general"
 
 export default ({ onPasscodeChange, onLoginButtonPress, isLoading }) => (
     <View style={commonStyles.container}>
