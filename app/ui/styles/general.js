@@ -35,5 +35,8 @@ export default StyleSheet.create({
         backgroundColor: "black",
         margin: 30,
         marginBottom: 50
+    },
+    section: {
+        margin: 20
     }
 })

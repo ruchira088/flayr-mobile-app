@@ -1,6 +1,8 @@
 import React from "react"
 import { View, Text } from "react-native"
 import BookingCard from "./BookingCard"
+import commonStyles from "../styles/general"
+import styles from "../styles/bookings"
 
 export default ({ bookings }) => {
 
@@ -9,8 +11,8 @@ export default ({ bookings }) => {
     )
 
     return (
-        <View>
-            <Text>Bookings</Text>
+        <View style={commonStyles.section}>
+            <Text style={styles.heading}>Bookings</Text>
             <View>
                 { bookingCards }
             </View>
