@@ -72,8 +72,9 @@ export default class Index extends React.Component
 
     homeScreen = () => {
         const { userData } = this.state
+        const { navigate } = this.props.navigation
 
-        return <Home userData={userData}/>
+        return <Home userData={userData} navigate={navigate}/>
     }
 
     onRegistrationSubmit = async () => {

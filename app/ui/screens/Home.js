@@ -23,13 +23,13 @@ export default class Home extends React.Component
 
     render() {
         const { bookings } = this.state
-        const { userData } = this.props
+        const { userData, navigate } = this.props
 
         return (
             <View>
                 <Text>Hello { userData.firstName }</Text>
                 <View>
-                    <BookingsSection bookings={bookings}/>
+                    <BookingsSection bookings={bookings} navigate={navigate}/>
                 </View>
             </View>
         )

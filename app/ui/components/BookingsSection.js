@@ -4,10 +4,10 @@ import BookingCard from "./BookingCard"
 import commonStyles from "../styles/general"
 import styles from "../styles/bookings"
 
-export default ({ bookings }) => {
+export default ({ bookings, navigate }) => {
 
     const bookingCards = bookings.map((booking, index) =>
-        <BookingCard booking={booking} key={index}/>
+        <BookingCard booking={booking} navigate={navigate} key={index}/>
     )
 
     return (
