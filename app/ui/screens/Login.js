@@ -1,10 +1,10 @@
 import React from "react"
-import { View, Text, TextInput } from "react-native"
+import { View, Text, TextInput, KeyboardAvoidingView } from "react-native"
 import Button from "apsl-react-native-button"
 import commonStyles, { jsStyles } from "../styles/general"
 
 export default ({ onPasscodeChange, onLoginButtonPress, isLoading }) => (
-    <View style={commonStyles.container}>
+    <KeyboardAvoidingView behavior="position" style={commonStyles.container}>
         <View style={commonStyles.body}>
             <Text style={commonStyles.description}>
                 It is a long established fact that a reader will be distracted by the
@@ -12,6 +12,7 @@ export default ({ onPasscodeChange, onLoginButtonPress, isLoading }) => (
             </Text>
             <Text style={commonStyles.label}>Passcode</Text>
             <TextInput
+                keyboardType="number-pad"
                 placeholder="passcode"
                 onChangeText={onPasscodeChange}
                 style={commonStyles.textInput}/>
@@ -24,5 +25,5 @@ export default ({ onPasscodeChange, onLoginButtonPress, isLoading }) => (
             style={commonStyles.button}>
             Submit
         </Button>
-    </View>
+    </KeyboardAvoidingView>
 )

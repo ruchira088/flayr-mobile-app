@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Text } from "react-native"
+import { View, Text, Button } from "react-native"
 import BookingsSection from "../components/BookingsSection"
 import { fetchBookings } from "../../services/backendService"
 
@@ -23,7 +23,7 @@ export default class Home extends React.Component
 
     render() {
         const { bookings } = this.state
-        const { userData, navigate } = this.props
+        const { userData, navigate, onLogout } = this.props
 
         return (
             <View>
@@ -31,6 +31,7 @@ export default class Home extends React.Component
                 <View>
                     <BookingsSection bookings={bookings} navigate={navigate}/>
                 </View>
+                <Button title="Logout" onPress={onLogout}/>
             </View>
         )
     }

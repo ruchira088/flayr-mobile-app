@@ -1,5 +1,5 @@
 import React from "react"
-import { fetchUserDetails, storeUserDetails } from "../../services/asyncStorage"
+import { fetchUserDetails, storeUserDetails, removeUserDetails } from "../../services/asyncStorage"
 import { login, register } from "../../services/backendService"
 import { parseUserData } from "../../utils/general"
 import { HOME, LOGIN, NEW_USER, PENDING } from "../../constants/appStatus"
@@ -19,17 +19,14 @@ export default class Index extends React.Component
     constructor(props) {
         super(props)
 
-        this.state = {
-            status: PENDING,
-            mobileNumber: "",
-            passcode: "",
-            loading: false,
-            userData: null
-        }
+        this.state = this.getInitialState()
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.initialize()
+    }
 
+    initialize = async () => {
         const userData = await fetchUserDetails()
 
         if (userData == null) {
@@ -74,7 +71,7 @@ export default class Index extends React.Component
         const { userData } = this.state
         const { navigate } = this.props.navigation
 
-        return <Home userData={userData} navigate={navigate}/>
+        return <Home userData={userData} navigate={navigate} onLogout={this.onLogout}/>
     }
 
     onRegistrationSubmit = async () => {
@@ -87,6 +84,22 @@ export default class Index extends React.Component
         console.log(registrationResponse.data)
 
         this.setState({ status: LOGIN, loading: false })
+    }
+
+    getInitialState = () => ({
+        status: PENDING,
+        mobileNumber: "",
+        passcode: "",
+        loading: false,
+        userData: null
+    })
+
+    onLogout = async () => {
+        await removeUserDetails()
+
+        this.setState(this.getInitialState())
+
+        this.initialize()
     }
 
     onLoginSubmit = async () => {

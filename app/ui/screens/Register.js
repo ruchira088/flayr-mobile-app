@@ -1,11 +1,11 @@
 import React from "react"
-import { View, TextInput, Text } from "react-native"
+import {Text, TextInput, View, KeyboardAvoidingView} from "react-native"
 import Button from "apsl-react-native-button"
-import commonStyles, { jsStyles } from "../styles/general"
+import commonStyles, {jsStyles} from "../styles/general"
 import styles from "../styles/registerScreen"
 
 export default ({ onMobileNumberChange, onRegisterButtonPress, isLoading }) => (
-    <View style={commonStyles.container}>
+    <KeyboardAvoidingView behavior="position" style={commonStyles.container}>
         <View style={commonStyles.body}>
             <Text style={styles.title}>F L A Y R</Text>
             <Text style={commonStyles.description}>
@@ -27,5 +27,5 @@ export default ({ onMobileNumberChange, onRegisterButtonPress, isLoading }) => (
             style={commonStyles.button} textStyle={jsStyles.textStyle}>
             NEXT
         </Button>
-    </View>
+    </KeyboardAvoidingView>
 )

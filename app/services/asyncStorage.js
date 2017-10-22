@@ -8,3 +8,5 @@ export const fetchUserDetails = async () => {
 }
 
 export const storeUserDetails = user => AsyncStorage.setItem(USER_DETAILS, JSON.stringify(user))
+
+export const removeUserDetails = () => AsyncStorage.removeItem(USER_DETAILS)

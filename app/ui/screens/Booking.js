@@ -1,25 +1,52 @@
 import React from "react"
 import {Text, View} from "react-native"
 import MapView from "react-native-maps"
+import Location, { LoadingLocation, LocationUnavailable } from "../components/Location"
+import { getCoordinates } from "../../services/geocodingService"
 import styles from "../styles/bookings"
 
-export const bookingScreenId = "booking-screen"
+export default class Booking extends React.Component
+{
+    static screenId = "booking-screen"
 
-export default ({ navigation }) => {
-    const booking = navigation.state.params
+    constructor(props) {
+        super(props)
 
-    return (
-        <View style={styles.container}>
-            <Text>{ booking.eventTime }</Text>
-            <MapView
-                style={styles.map}
-                region={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421}
-            }/>
-            <Text>{ booking.eventTime }</Text>
-        </View>
-    )
+        this.state = {
+            loading: true,
+            coordinates: null
+        }
+    }
+
+    async componentDidMount() {
+        const { suburb, state } = this.props.navigation.state.params
+
+        const coordinates = await getCoordinates({ suburb, state })
+
+        this.setState({ coordinates, loading: false })
+    }
+
+    renderLocation() {
+        const { loading, coordinates } = this.state
+
+        if (loading) {
+            return <LoadingLocation/>
+        } else if (coordinates !== null) {
+            return <Location coordinates={coordinates}/>
+        } else {
+            return <LocationUnavailable/>
+        }
+    }
+
+    render() {
+        const { params: booking } = this.props.navigation.state
+
+        return (
+            <View>
+                <Text>{ booking.eventTime }</Text>
+                { this.renderLocation() }
+                <Text>{ booking.eventTime }</Text>
+            </View>
+        )
+    }
 }

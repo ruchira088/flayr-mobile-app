@@ -16,9 +16,7 @@ export default StyleSheet.create({
         borderRadius: 5
     },
     container: {
-        ...StyleSheet.absoluteFillObject,
         height: 400,
-        width: 400,
         justifyContent: "flex-end",
         alignItems: "center",
     },
