@@ -1,6 +1,7 @@
 import React from "react"
+import { PushNotificationIOS, Alert } from "react-native"
 import { fetchUserDetails, storeUserDetails, removeUserDetails } from "../../services/asyncStorage"
-import { login, register } from "../../services/backendService"
+import { login, register, registerPushNotificationsToken } from "../../services/backendService"
 import { parseUserData } from "../../utils/general"
 import { HOME, LOGIN, NEW_USER, PENDING } from "../../constants/appStatus"
 import LoadingScreen from "./Loading"

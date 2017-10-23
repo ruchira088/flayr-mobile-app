@@ -1,7 +1,10 @@
 import React from "react"
-import { View, Text, Button } from "react-native"
+import { View, Text, Button, PushNotificationIOS, Alert } from "react-native"
+import moment from "moment"
 import BookingsSection from "../components/BookingsSection"
-import { fetchBookings } from "../../services/backendService"
+import NewBooking from "../screens/NewBooking"
+import { PushEvents } from "../../constants/general"
+import { fetchBookings, registerPushNotificationsToken } from "../../services/backendService"
 
 export default class Home extends React.Component
 {
@@ -14,11 +17,61 @@ export default class Home extends React.Component
     }
 
     async componentDidMount() {
-        const { userData: { bearerToken, airtableId } } = this.props
+        const { userData: { bearerToken, airtableId }, navigate } = this.props
+
+        this.notificationEventHandler(PushNotificationIOS.addEventListener)
+
+        PushNotificationIOS.requestPermissions()
+
+        const launchNotification = await PushNotificationIOS.getInitialNotification()
+
+        if (launchNotification !== null) {
+            navigate(NewBooking.screenId)
+        }
 
         const bookings = await fetchBookings({ bearerToken, airtableId })
 
         this.setState({ bookings })
+    }
+
+    componentWillUnmount() {
+        this.notificationEventHandler(PushNotificationIOS.removeEventListener)
+    }
+
+    notificationEventHandler = eventListener =>
+    {
+        eventListener(PushEvents.REGISTER, this.onPushNotificationsRegister)
+
+        eventListener(PushEvents.REMOTE_NOTIFICATION, this.onRemoteNotification)
+
+        eventListener(PushEvents.LOCAL_NOTIFICATION, this.onLocalNotification)
+    }
+
+    onPushNotificationsRegister = apnsToken =>
+    {
+        const { userData: { bearerToken, airtableId, id } } = this.props
+
+        registerPushNotificationsToken(bearerToken)(
+            {
+                stylistAirtableId: airtableId,
+                stylistId: id,
+                apnsToken
+            })
+    }
+
+    onRemoteNotification = remoteNotification => {
+        Alert.alert("remote notification")
+        remoteNotification.finish(PushNotificationIOS.FetchResult.NewData)
+    }
+
+    onLocalNotification = localNotification => {
+        Alert.alert("local notification")
+    }
+
+    onNewBooking = () => {
+        const { navigate } = this.props
+
+        navigate(NewBooking.screenId, { date: moment() })
     }
 
     render() {
@@ -31,6 +84,7 @@ export default class Home extends React.Component
                 <View>
                     <BookingsSection bookings={bookings} navigate={navigate}/>
                 </View>
+                <Button title="New Booking" onPress={this.onNewBooking}/>
                 <Button title="Logout" onPress={onLogout}/>
             </View>
         )

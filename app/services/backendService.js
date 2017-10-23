@@ -29,4 +29,6 @@ export const fetchBookings = async ({ bearerToken, airtableId }) =>
     return bookings
 }
 
-
+export const registerPushNotificationsToken = bearerToken => ({ apnsToken, stylistAirtableId, stylistId }) =>
+    authenticatedAxiosClient(bearerToken)
+        .post(`/push-notifications/${stylistAirtableId}/register`, { stylistId, deviceToken: apnsToken })
