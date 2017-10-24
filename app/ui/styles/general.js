@@ -38,5 +38,13 @@ export default StyleSheet.create({
     },
     section: {
         margin: 20
-    }
+    },
+    card: {
+        backgroundColor: "white",
+        padding: 5,
+        borderWidth: 1,
+        borderColor: "black",
+        marginBottom: 5,
+        borderRadius: 5
+    },
 })

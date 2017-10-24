@@ -23,17 +23,17 @@ export default class NewBooking extends React.Component
         const format = momentDate => momentDate.utc().format().replace("Z", ".000Z")
 
         return {
-            startDate: format(moment(date).startOf(Moment.DAY)),
-            endDate: format(moment(date).endOf(Moment.DAY))
+            startTimestamp: format(moment(date).startOf(Moment.DAY)),
+            endTimestamp: format(moment(date).endOf(Moment.DAY))
         }
     }
 
     async componentDidMount() {
-        const { startDate, endDate } = this.getDateRange()
+        const { startTimestamp, endTimestamp } = this.getDateRange()
 
         try {
             const authorizationStatus = await CalendarEvents.authorizeEventStore()
-            const allEvents = await CalendarEvents.fetchAllEvents(startDate, endDate)
+            const allEvents = await CalendarEvents.fetchAllEvents(startTimestamp, endTimestamp)
 
             const events = allEvents.filter(({ calendar }) => calendar.source === "Default")
 
@@ -45,10 +45,11 @@ export default class NewBooking extends React.Component
 
     render() {
         const { events } = this.state
+        const { date } = this.props.navigation.state.params
 
         return (
             <View>
-                <DailyAgenda events={events}/>
+                <DailyAgenda events={events} date={date}/>
             </View>
         )
     }

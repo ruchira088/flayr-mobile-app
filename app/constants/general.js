@@ -5,5 +5,6 @@ export const PushEvents = {
 }
 
 export const Moment = {
-    DAY: "day"
+    DAY: "day",
+    DATE_DISPLAY_FORMAT: "dddd Do MMMM YYYY"
 }

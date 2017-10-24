@@ -1,8 +1,10 @@
 import React from "react"
-import { View } from "react-native"
+import { View, Text } from "react-native"
+import { Moment } from "../../constants/general"
 import Event from "./Event"
+import commonStyles from "../styles/general"
 
-export default ({ events }) => {
+export default ({ events, date }) => {
 
     const eventCards = events.map((event, index) =>
         <Event
@@ -13,8 +15,14 @@ export default ({ events }) => {
     )
 
     return (
-        <View>
-            { eventCards }
+        <View style={commonStyles.section}>
+            <Text>
+
+                { date.format(Moment.DATE_DISPLAY_FORMAT) }
+            </Text>
+            <View>
+                { eventCards }
+            </View>
         </View>
     )
 }
