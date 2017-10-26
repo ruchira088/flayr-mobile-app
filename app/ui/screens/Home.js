@@ -1,10 +1,9 @@
 import React from "react"
-import { View, Text, Button, PushNotificationIOS, Alert } from "react-native"
-import moment from "moment"
+import {Alert, Button, PushNotificationIOS, Text, View} from "react-native"
 import BookingsSection from "../components/BookingsSection"
 import NewBooking from "../screens/NewBooking"
-import { PushEvents } from "../../constants/general"
-import { fetchBookings, registerPushNotificationsToken } from "../../services/backendService"
+import {PushEvents} from "../../constants/general"
+import {fetchBookings, registerPushNotificationsToken} from "../../services/backendService"
 
 export default class Home extends React.Component
 {
@@ -60,8 +59,10 @@ export default class Home extends React.Component
     }
 
     onRemoteNotification = remoteNotification => {
-        Alert.alert("remote notification")
+        const { navigate } = this.props
+
         remoteNotification.finish(PushNotificationIOS.FetchResult.NewData)
+        navigate(NewBooking.screenId, remoteNotification._data)
     }
 
     onLocalNotification = localNotification => {
