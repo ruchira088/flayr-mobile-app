@@ -4,6 +4,7 @@ import { View, Text, Alert } from "react-native"
 import CalendarEvents from "react-native-calendar-events"
 import { Moment } from "../../constants/general"
 import DailyAgenda from "../components/DailyAgenda"
+import Booking from "../components/Booking"
 
 export default class NewBooking extends React.Component
 {
@@ -45,11 +46,12 @@ export default class NewBooking extends React.Component
 
     render() {
         const { events } = this.state
-        const { date } = this.props.navigation.state.params
+        const { params: booking } = this.props.navigation.state
 
         return (
             <View>
-                <DailyAgenda events={events} date={date}/>
+                <Booking {...booking}/>
+                {/*<DailyAgenda events={events} date={date}/>*/}
             </View>
         )
     }

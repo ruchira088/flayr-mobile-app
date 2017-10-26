@@ -2,7 +2,7 @@ import React from "react"
 import { View, Text } from "react-native"
 import MapView from "react-native-maps"
 import { LOCATION_DELTA } from "../../config"
-import styles from "../styles/bookings"
+import styles from "../styles/booking"
 
 export default ({ coordinates }) => (
     <View style={styles.container}>

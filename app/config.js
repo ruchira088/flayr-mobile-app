@@ -1,4 +1,4 @@
-export const BACKEND_SERVICE_URL = "http://192.168.0.8:9000"
+export const BACKEND_SERVICE_URL = "http://192.168.0.22:9000"
 
 export const DEFAULT_AUTHENTICATION_SCHEME = "Bearer"
 

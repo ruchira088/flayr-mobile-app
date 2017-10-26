@@ -26,7 +26,7 @@ export default class Home extends React.Component
         const launchNotification = await PushNotificationIOS.getInitialNotification()
 
         if (launchNotification !== null) {
-            navigate(NewBooking.screenId)
+            navigate(NewBooking.screenId, launchNotification._data)
         }
 
         const bookings = await fetchBookings({ bearerToken, airtableId })
@@ -71,7 +71,14 @@ export default class Home extends React.Component
     onNewBooking = () => {
         const { navigate } = this.props
 
-        navigate(NewBooking.screenId, { date: moment() })
+        navigate(NewBooking.screenId, {
+            eventTime: "2:00 PM",
+            eventDate: "2018-05-19",
+            state: "VIC",
+            suburb: "Caroline Springs",
+            supplierPayment: "620",
+            numberOfPeople: "6"
+        })
     }
 
     render() {

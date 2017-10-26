@@ -1,9 +1,8 @@
 import React from "react"
-import {Text, View} from "react-native"
-import MapView from "react-native-maps"
-import Location, { LoadingLocation, LocationUnavailable } from "../components/Location"
-import { getCoordinates } from "../../services/geocodingService"
-import styles from "../styles/bookings"
+import {View} from "react-native"
+import {getCoordinates} from "../../services/geocodingService"
+import Location, {LoadingLocation, LocationUnavailable} from "./Location"
+import BookingSummary from "./BookingSummary"
 
 export default class Booking extends React.Component
 {
@@ -19,7 +18,7 @@ export default class Booking extends React.Component
     }
 
     async componentDidMount() {
-        const { suburb, state } = this.props.navigation.state.params
+        const { suburb, state } = this.props
 
         const coordinates = await getCoordinates({ suburb, state })
 
@@ -39,13 +38,10 @@ export default class Booking extends React.Component
     }
 
     render() {
-        const { params: booking } = this.props.navigation.state
-
         return (
             <View>
-                <Text>{ booking.eventTime }</Text>
+                <BookingSummary booking={this.props}/>
                 { this.renderLocation() }
-                <Text>{ booking.eventTime }</Text>
             </View>
         )
     }

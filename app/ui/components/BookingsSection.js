@@ -2,7 +2,7 @@ import React from "react"
 import { View, Text } from "react-native"
 import BookingCard from "./BookingCard"
 import commonStyles from "../styles/general"
-import styles from "../styles/bookings"
+import styles from "../styles/booking"
 
 export default ({ bookings, navigate }) => {
 
